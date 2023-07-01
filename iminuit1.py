@@ -305,7 +305,7 @@ def func(a,b,c,k1,k2,k3):
     
     
     
-    #chiquadro yield
+    #chisquare yield
     for i in range(len(val)):
     
        chi2par[i]= pow((y[i]-val[i])/sigmatot[i],2.);
