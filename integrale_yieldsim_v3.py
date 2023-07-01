@@ -78,21 +78,21 @@ def stopping_eff(ind,E_x): #ind=index for the layer to be considered, E_x energy
 
    
 
-#funzione per calcolare deltaE effettivo a partire da un valore di energia nel layer considerato (NB target TaN)
 
+#calculates the energy lost in a given target layer (TaN) starting from a given energy E_x
 
-def deltae(ind,E_x): #ind = indice del target che si vuole usare, E_x = energia del protone nel lab
+def deltae(ind,E_x): #ind = index of the layer to use, E_x = initial beam energy in the laboratory frame
    
   DE=0.
   
-  # Calcoliamo gli estremi dell'integrale
+
   Xmax = layer_dx[ind] 
   Xmin = 0. #E_1=E-DE
    
-  # Definiamo il numero di step
+
   nSteps = 1000
 
-  # Calcoliamo la grandezza dello step
+
   step = (Xmax - Xmin)/nSteps
    
   E_step=E_x
@@ -101,17 +101,17 @@ def deltae(ind,E_x): #ind = indice del target che si vuole usare, E_x = energia 
        stopPower     = stopping_true(ind, E_step) #stopping power in E_step   nel lab
        E_step        -= step*stopPower
   
-  #calcolo DE
+  
   DE=E_x-E_step
   
   
   return(DE)
 
 
-#funzione per calcolare l'integrale tra due estremi (in un layer)
+#calculates the yield (integral of the cross section over the effective stopping power)  
 
 
-def integral_L(ind,E_1,E_2):  #ind=indice di layer E_1 ed E_2 sono ext_inf e ext_sup dell'integrale nel main
+def integral_L(ind,E_1,E_2):  #ind=index of the layer considered, extrema in energy for the integration
 
 
    
