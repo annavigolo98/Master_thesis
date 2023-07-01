@@ -106,7 +106,7 @@ for(int a=0; a<dati_input.size(); a++){
    intree->GetEntry(i);
    inbranch1->GetEntry(i);
    
-   if(indata.channel==2)   //germanio
+   if(indata.channel==2)   //germanium detector
    {h_spectrum->Fill(indata.energy);
    
     
@@ -141,7 +141,7 @@ for(int a=0; a<dati_input.size(); a++){
    intree->GetEntry(i);
    inbranch1->GetEntry(i);
    
-   if(indata.channel==2)  //timestamp ch2 germanio
+   if(indata.channel==2)  //timestamp ch2 germanium detector
    {timestamp->Fill(indata.timeStamp);
     timestamp_ch.push_back(indata.timeStamp);
      };
