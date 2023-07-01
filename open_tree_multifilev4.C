@@ -23,11 +23,13 @@ void readchannel()
 {
  
  
- 
+//input files 
 vector<const char*> dati_input{"run616_lf.root","run617_lf.root","run618_lf.root","run619_lf.root","run620_lf.root","run621_lf.root","run622_lf.root","run623_lf.root","run624_lf.root","run625_lf.root","run626_lf.root","run627_lf.root","run628_lf.root","run629_lf.root","run630_lf.root","run631_lf.root","run632_lf.root","run633_lf.root","run634_lf.root"};
 
 vector <double> charge={15441,16676,12007,12881,18769,14855,14068,13349,12054,11498,10488,10534,10569,10648,12410,25149,16395,19951,20535};
 
+
+//output files
 string output1="timestamp_scan.txt";
 
  ofstream outputfile1(output1);
@@ -85,9 +87,9 @@ for(int a=0; a<dati_input.size(); a++){
  TFile *infile = new TFile(dati_input[a]);
  TTree *intree = (TTree*)infile->Get(Form("Board 0"));
  
- TH1D *h_spectrum= new TH1D("h_spectrum","decayspectrum",32768,0.,32768); //stesso binning della scheda, deve venire uguale alle aree con histo
+ TH1D *h_spectrum= new TH1D("h_spectrum","decayspectrum",32768,0.,32768); 
  
- TH1D *hcharge= new TH1D("hcharge","hcharge",32768,0.,32768); //stesso binning della scheda, deve venire uguale alle aree con histo
+ TH1D *hcharge= new TH1D("hcharge","hcharge",32768,0.,32768); 
  
  TH1D *timestamp= new TH1D("timestamp","timestamp",5000,0.,80.*1e9);
  
