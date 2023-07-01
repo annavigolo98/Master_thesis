@@ -68,8 +68,8 @@ def write_tot_stopping(e_tot_stopping,E_stopping,name):
 
 def stopping_true_TaN(E_x): 
    
-   e_totN14 = graphStopPowerNitrogen14.Eval( E_x ) #stopping power totale a E_x per N14
-   e_totTa  = graphStopPowerTantalum.Eval( E_x ) #stopping power totale a E_x per Ta
+   e_totN14 = graphStopPowerNitrogen14.Eval( E_x ) 
+   e_totTa  = graphStopPowerTantalum.Eval( E_x )
    
    e_true_TaN=(e_totN14+e_totTa)/2. 
    
@@ -79,8 +79,8 @@ def stopping_true_TaN(E_x):
    
 def stopping_true_ZrN(E_x): 
    
-   e_totN14 = graphStopPowerNitrogen14.Eval( E_x ) #stopping power totale a E_x per N14
-   e_totZr  = graphStopPowerZirconium.Eval( E_x ) #stopping power totale a E_x per Ta
+   e_totN14 = graphStopPowerNitrogen14.Eval( E_x ) 
+   e_totZr  = graphStopPowerZirconium.Eval( E_x )
    
    e_true_ZrN=(e_totN14+e_totZr)/2. 
    
