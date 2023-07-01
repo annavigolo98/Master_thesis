@@ -7,13 +7,14 @@ import scipy.integrate as integrate
 import ROOT
 
 
-
+#stopping power
 
 graphStopPowerNitrogen14 = ROOT.TGraph( "e_tot_stopping_N14.txt" )
 graphStopPowerTantalum = ROOT.TGraph( "e_tot_stopping_Ta.txt" )
 graphStopPowerNitrogen15 = ROOT.TGraph( "e_tot_stopping_N15.txt" )
 graphStopPowerZirconium = ROOT.TGraph( "e_tot_stopping_Zr.txt" )
 
+#S-factor and detector total efficiency curevs
 graphSfactor=ROOT.TGraph( "s_6793_li.txt" )  # in MeV e MeV/barn
 graphEfficiency=ROOT.TGraph( "eff_tot55gradi.txt" )
 
@@ -59,28 +60,28 @@ def write_tot_stopping(e_tot_stopping,E_stopping,name):
 
 
 
-#funzioni per calcolare lo stopping power a una energia data E_x; interpolazione lineare ROOT 
+#functions to calculate the stopping power at a given energy E_x 
 
 
 #TaN targets
 
-def stopping_true_TaN(E_x): # E_x energia per la quale voglio calcolare stopping power e effective stopping power.
+def stopping_true_TaN(E_x): 
    
    e_totN14 = graphStopPowerNitrogen14.Eval( E_x ) #stopping power totale a E_x per N14
    e_totTa  = graphStopPowerTantalum.Eval( E_x ) #stopping power totale a E_x per Ta
    
-   e_true_TaN=(e_totN14+e_totTa)/2. #stopping power true per TaN target
+   e_true_TaN=(e_totN14+e_totTa)/2. 
    
    return(e_true_TaN)
 
 #ZrN targets
    
-def stopping_true_ZrN(E_x): # E_x energia per la quale voglio calcolare stopping power e effective stopping power.
+def stopping_true_ZrN(E_x): 
    
    e_totN14 = graphStopPowerNitrogen14.Eval( E_x ) #stopping power totale a E_x per N14
    e_totZr  = graphStopPowerZirconium.Eval( E_x ) #stopping power totale a E_x per Ta
    
-   e_true_ZrN=(e_totN14+e_totZr)/2. #stopping power true per TaN target
+   e_true_ZrN=(e_totN14+e_totZr)/2. 
    
    return(e_true_ZrN)   
 
@@ -88,9 +89,9 @@ def stopping_true_ZrN(E_x): # E_x energia per la quale voglio calcolare stopping
 
 def stopping_eff_TaN(E_x): 
    
-   e_totN14 = graphStopPowerNitrogen14.Eval( E_x ) #stopping power totale a E_x per N14
-   e_totN15 = graphStopPowerNitrogen15.Eval( E_x ) #stopping power totale a E_x per N15
-   e_totTa  = graphStopPowerTantalum.Eval( E_x ) #stopping power totale a E_x per Ta
+   e_totN14 = graphStopPowerNitrogen14.Eval( E_x )
+   e_totN15 = graphStopPowerNitrogen15.Eval( E_x ) 
+   e_totTa  = graphStopPowerTantalum.Eval( E_x ) 
    
    e_eff_TaN= e_totN14+0.004*e_totN15+e_totTa
    
@@ -102,9 +103,9 @@ def stopping_eff_TaN(E_x):
 
 def stopping_eff_ZrN(E_x): 
    
-   e_totN14 = graphStopPowerNitrogen14.Eval( E_x ) #stopping power totale a E_x per N14
-   e_totN15 = graphStopPowerNitrogen15.Eval( E_x ) #stopping power totale a E_x per N15
-   e_totZr  = graphStopPowerZirconium.Eval( E_x ) #stopping power totale a E_x per Zr
+   e_totN14 = graphStopPowerNitrogen14.Eval( E_x )
+   e_totN15 = graphStopPowerNitrogen15.Eval( E_x ) 
+   e_totZr  = graphStopPowerZirconium.Eval( E_x ) 
    
    e_eff_ZrN= e_totN14+0.004*e_totN15+e_totZr
    
@@ -115,21 +116,21 @@ def stopping_eff_ZrN(E_x):
 
 
 
-#funzione per calcolare deltaE effettivo a partire da un valore di energia nel layer considerato (NB target TaN)
+#function to calculate the energy loss in a given target
 
 #TaN Targets
 
 
 def deltae_TaN(E_x): 
   
-  dx=1. #10^18 atoms/cm^2
+  dx=1. #10^18 atoms/cm^2 
   
   
-  e_true1=stopping_true_TaN(E_x) #stopping power a E_x
+  e_true1=stopping_true_TaN(E_x) #stopping power at E_x
   DE=e_true1*dx #DE a E_x
   
   E_def=E_x-DE/2.
-  e_true_def=stopping_true_TaN(E_def) #stopping power a E_x-DE/2
+  e_true_def=stopping_true_TaN(E_def) #stopping power at E_x-DE/2
   
   DE=e_true_def*dx # DE a E_x-DE/2
   
@@ -145,41 +146,40 @@ def deltae_ZrN(E_x):
   dx=1. #10^18 atoms/cm^2
   
   
-  e_true1=stopping_true_ZrN(E_x) #stopping power a E_x
+  e_true1=stopping_true_ZrN(E_x) #stopping power at E_x
   DE=e_true1*dx #DE a E_x
   
   E_def=E_x-DE/2.
-  e_true_def=stopping_true_ZrN(E_def) #stopping power a E_x-DE/2
+  e_true_def=stopping_true_ZrN(E_def) #stopping power at E_x-DE/2
   
   DE=e_true_def*dx # DE a E_x-DE/2
   
   
   return(DE)   
    
-#Funzione per integrare la sezione d'urto
+#function to integrate the cross section divided by the effective stopping power to calculate the yield profile
 
 #TaN
 
    
-def integral_TaN(E_1,E_2):  #estremi nel lab
+def integral_TaN(E_1,E_2):  #extrema of energy in the laboratory frame
    a=14./15.
    
-   # Calcoliamo gli estremi dell'integrale nel lab
+  
    EMax = E_2 #E_2=E
    EMin = E_1 #E_1=E-DE
 
-   # Definiamo le variabili ausiliarie per l'integrale
    integral = 0.
     
-   # Definiamo il numero di step
+  
    nSteps = 100000
 
-   # Calcoliamo la grandezza dello step
+  
    step = (EMax - EMin)/nSteps
 
-   # Definiamo la variabile energia
-   E_step = EMin + step/2  # Metodo Trapezio
-   #E_step = EMin           # Metodo Classico
+  
+   E_step = EMin + step/2  # trapezoid
+   #E_step = EMin           # classic method
    
    
    
@@ -208,22 +208,20 @@ def integral_TaN(E_1,E_2):  #estremi nel lab
 def integral_ZrN(E_1,E_2): 
    a=14./15. 
 
-   # Calcoliamo gli estremi dell'integrale
+   
    EMax = E_2 #E_2=E
    EMin = E_1 #E_1=E-DE
 
-   # Definiamo le variabili ausiliarie per l'integrale
+   
    integral = 0.
-    
-   # Definiamo il numero di step
+   
    nSteps = 100000
 
-   # Calcoliamo la grandezza dello step
    step = (EMax - EMin)/nSteps
 
-   # Definiamo la variabile energia
-   E_step = EMin + step/2  # Metodo Trapezio
-   #E_step = EMin           # Metodo Classico
+  
+   E_step = EMin + step/2  # trapezoid
+   #E_step = EMin           # classic method
    
    def calculateCrossSection(E_x):
      
@@ -271,9 +269,9 @@ sigma=np.zeros(len(E_cm),float)
 sigma[:]=(S[:]/E_cm[:])*np.exp(-212.4/(np.sqrt(E_cm[:])))
 
 
-#conversione E_lab a E_cm
 
-a2=15./14.
+
+a2=15./14. #conversion from E_cm to E_lab
 
 E_lab=np.zeros(len(E_cm),float)
 E_lab=a2*E_cm
