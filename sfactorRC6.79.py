@@ -6,7 +6,8 @@ from scipy import optimize as opt
 import scipy.integrate as integrate
 import ROOT
 
-
+#program to calculate the yield profile and the expected counting rate (Yield x efficiency x I x e: I=beam current, e=electric charge ) by integrating the cross section (calculated from the S factor) divided by the effective stopping power over the energy lost through the target by the 
+#beam. input: stopping power for target elements, efficiency of the detector and S-factor values. target thickness=10^18 atoms/cm^2, TaN and ZrN targets, beam current I=100 muA. 
 #stopping power
 
 graphStopPowerNitrogen14 = ROOT.TGraph( "e_tot_stopping_N14.txt" )
@@ -345,11 +346,11 @@ Y_ZrN=[]
 #TaN
 
 for i in range(len(E_lab)):
-    #calcolo dell'integrale per ogni energia del protone
+    #calculates the yield for all the proton energies
     DE=0. #deltae
     Yield=0.
     
-    #estremi integrale all'inizio
+    
     
     ext_sup=E_lab[i] 
     DE=deltae_TaN(ext_sup)
@@ -361,7 +362,7 @@ for i in range(len(E_lab)):
     
     
     if(ext_inf<E_0):
-        #integro da E_0 a ext_sup
+        #integral from  E_0 to ext_sup
          
         Yield+=integral_TaN(E_0,ext_sup)
         
@@ -369,7 +370,7 @@ for i in range(len(E_lab)):
       
       
     if(ext_inf>=E_0):
-        #integro da ext_inf a ext_sup
+        #integral from  ext_inf to ext_sup
         Yield+= integral_TaN(ext_inf,ext_sup)
         
        
@@ -383,11 +384,11 @@ Y_TaN=np.array(Y_TaN)
 #ZrN
 
 for i in range(len(E_lab)):
-    #calcolo dell'integrale per ogni energia del protone
+    #calculates the yield for every proton energy
     DE=0. #deltae
     Yield=0.
     
-    #estremi integrale all'inizio
+   
     
     ext_sup=E_lab[i] 
     DE=deltae_ZrN(ext_sup)
@@ -399,7 +400,7 @@ for i in range(len(E_lab)):
     
     
     if(ext_inf<E_0):
-        #integro da E_0 a ext_sup
+        #integral from E_0 to ext_sup
          
         Yield+=integral_ZrN(E_0,ext_sup)
         
@@ -407,7 +408,7 @@ for i in range(len(E_lab)):
       
       
     if(ext_inf>=E_0):
-        #integro da ext_inf a ext_sup
+        #integral from ext_inf to ext_sup
         Yield+= integral_ZrN(ext_inf,ext_sup)
         
         
@@ -432,7 +433,7 @@ Y_ZrN=np.array(Y_ZrN)
 #plt.yscale('log')
 #plt.show()
 
-Ie=624150900000000  #I/e con I=100muA
+Ie=624150900000000  #I/e with I=100muA
 
 rate_TaN=1e-6*Y_TaN*Ie
 rate_ZrN=1e-6*Y_ZrN*Ie
@@ -449,11 +450,11 @@ plt.xlabel('E_lab (keV)')
 plt.yscale('log')
 plt.show()
 
-#transizione da RC a 6793 keV state
+#transition from RC to 6793 keV state
 
 efficiency=np.zeros(len(E_lab),float)
 
-E_gamma2=6793.0 #keV #fotone secondario
+E_gamma2=6793.0 #keV #secondary gamma in cascade with the primary one
 Q=7297.0 #keV
 E_gamma=np.zeros(len(E_lab),float)
 
@@ -495,7 +496,7 @@ plt.show()
     
 
 
-#plot efficienza
+#plot efficiecy
 #plt.scatter(E_gamma,efficiency)
 #plt.xlabel('E_gamma (keV)')
 #plt.ylabel('Efficiency (tot)')
