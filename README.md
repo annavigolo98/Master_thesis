@@ -5,5 +5,5 @@ Programs used for target analysis for the 14N(p,g)15O reaction studied in my mas
 thickness in atoms/cm^2, percentages of nitrogen and tantalum in each layer. The cross section is calculated apart from a normalization constant (to be fitted). 
 2) Program to add beam straggling effects by convolution of the yield values with a gaussian function.
 3) Program to analyze '.root' files containing energy spectra for gamma rays acquired by a Ge detector. Gets the charge and timestamps form related histograms saved in the '.root' file
-   and calculates the areas under the peaks of interest in the energy spectra (also subtracting the background). Calculates the yield (area under a peak divided by the energy) for aech
+   and calculates the areas under the peaks of interest in the energy spectra (also subtracting the background). Calculates the yield (area under a peak divided by the charge) for aech
    beam energy and for each gamma ray transition studied for the 15O nucleus.
