@@ -99,9 +99,9 @@ def straggling2( x_, par  ):
     
     for i in range(len(x_)):
       
-      #par=0.589 #fit
+      
       sigma1   = par*np.sqrt(x_[i]-278.+0.001)
-      #sigma1   = calculateSigmaStraggling( x_[i] )
+      
       sigma[i]=sigma1
 
       if (x_[i]>278. and x_[i]<319.5):   #straggling starts from the resonance energy 
@@ -149,7 +149,7 @@ fnameexpdata='yieldexp2.txt' #data 27 mar
 Eexp, Yieldexp, Ysigmaexp = np.genfromtxt(fnameexpdata,dtype='float',comments='#',usecols=(0,1,2),unpack=True) 
 s=0.3
 Yield2, sigma = straggling2( Ep,s)
-#residui e chiq
+
 
 res=np.zeros(len(Yieldexp),float)
 
