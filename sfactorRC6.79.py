@@ -6,7 +6,7 @@ from scipy import optimize as opt
 import scipy.integrate as integrate
 import ROOT
 
-#program to calculate the yield profile and the expected counting rate (Yield x efficiency x I x e: I=beam current, e=electric charge ) by integrating the cross section (calculated from the S factor) divided by the effective stopping power over the energy lost through the target by the 
+#program to calculate the yield profile and the expected counting rate (Yield x efficiency x I/e: I=beam current, e=electric charge ) by integrating the cross section (calculated from the S factor) divided by the effective stopping power over the energy lost through the target by the 
 #beam. input: stopping power for target elements, efficiency of the detector and S-factor values. target thickness=10^18 atoms/cm^2, TaN and ZrN targets, beam current I=100 muA. 
 #stopping power
 
