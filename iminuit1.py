@@ -10,7 +10,13 @@ from iminuit import Minuit,cost
 import uncertainties 
 from uncertainties import ufloat
 
-#Branching ratios da usare 
+
+#Program to fit the experimental data with theoretical formulas to obtain the peak and total efficiency curve of a Ge detector. Ratios between the net counts under the peaks of the energy spectra and 
+#the expected number of counts for the Co, Cs and Ba radioactive sources is used. Ratio between the primary and secondary transition yields of the 15O nucleus are also fitted. Total efficiency of the Cs source is 
+#used.
+
+
+#Branching ratios to use 
 
 b662=0.851
 sigmab662=0.02
@@ -166,8 +172,8 @@ E_2505=2.505729
 
 def func(a,b,c,k1,k2,k3):
 
-  
-    #yield efficienza Cs e Co, yield eff Ba, rapporto yields N, efftot Cs,  sumpeak 2505keV Co
+    #Quantities to be fitted to get the efficiency curve: 
+    # net_counts/expected_counts Cs, Co,  Ba, ratio yields of primary to secondary transitions 15O, efftot Cs,  net_counts/expected_counts     sum peak 2505keV Co
     
     y=[0.0184935292224484,0.0160318628603875,0.0149047791402305,    0.00163673927231275,0.00409705178262663,0.0136803518467206,0.00193083363308166,   4.84416414487933,3.26210127533426,2.1554788894365,   0.0202542116329361    , 0.000323278497210588  ]   
     y=np.array(y)
@@ -348,16 +354,13 @@ def eff_tot(eff_p,k1,k2,k3,Ex):
 
 
  
-#parametri Jakub
+#parameters J
 #parameters=[0.08,-0.57,-0.103,-1.47,-0.6,-0.1] 
 
 
-#parametri Denise foglio efficiency
+#parameters D
 parameters=[0.099169882251258,-0.587111677130061,-0.0944993174452277,-1.37134385962633,-0.554341534254716,-0.0433382652728538]
 
-
-#parametri Denise foglio efficiency daniel
-#parameters=[1.01e-01,-5.83e-01,-9.65E-02,-1.636548,-0.24924150877,-0.13056511330] 
 parameters=np.array(parameters)
 
 #lsq=opt.least_squares(residuals, parameters, args=(x,y), xtol=1e-07, loss='cauchy')
@@ -385,7 +388,7 @@ k1=m.values[3]
 k2=m.values[4]
 k3=m.values[5]
 
-#per printare chi2 ed errori tot 
+ 
 prova=func(a,b,c,k1,k2,k3)
 
    
