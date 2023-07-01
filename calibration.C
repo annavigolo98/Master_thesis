@@ -4,7 +4,7 @@ void macrofit(){
     //Energy calibration of a detector starting from energy in channels and nominal values for the energies in keV of the peaks of interest. Gaussian functions  are used to fit the peaks in the energy spectrum and get the 
     //centroids in channels. Linear relation between energies in channels and the ones in keV is assumed.
 
-    const int h=12;  //numero dati per le dimensioni degli array
+    const int h=12;  //number of data points used
     double x_val[h] = {477.612 ,511.0, 609.321, 1460.820, 2614.511,1173.228, 1332.501, 661.657, 276.3989,302.8508,356.0129,383.8485 };//data x 
     double y_val[h] = {7.04832e+02,7.54264e+02 ,8.99298e+02,2.15188e+03,3.85960e+03,   1.73140e+03,1.96660e+03, 9.75924e+02, 4.07591e+02,4.46619e+02,5.25136e+02,5.66180e+02  };//data y
     
@@ -34,7 +34,7 @@ void macrofit(){
     g->Draw("APE");
     f->Draw("same");
     
-    //Info aggiuntive al fit
+    //Info on the fit
     cout << "Chi^2 = " << f->GetChisquare() << endl;
     cout << "NDF = " << f->GetNDF() << endl;
     cout << "R =  " << g->GetCorrelationFactor() << endl;
