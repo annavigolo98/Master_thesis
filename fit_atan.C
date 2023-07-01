@@ -4,43 +4,18 @@
 #include <string>
 using namespace std;
 
+
+//fit of the yield profile of the targets analyzed with a double arctangent function: a rising edge defines the first set of parameters; the second one defines the second one.
 void grafico(const char *namefile) {
 
 TCanvas *c1= new TCanvas("c1");
 TGraphErrors *d= new TGraphErrors(namefile,"%lg %lg %lg ");
-//TGraphErrors *d2= new TGraphErrors(namefile2,"%lg %lg %lg %lg");
 
-
-//TF1  *f1= new TF1("f1", "[0]+x*[1]", 0.,12000);
-
-
-
-//d->GetXaxis()->SetTitle("d(cm)");
-//d->GetYaxis()->SetTitle("S/N");
-//d->GetXaxis()->CenterTitle();
-//d->GetYaxis()->CenterTitle();
-//d->SetTitle("Signal to noise ratio 511 keV ");
 
 d->SetMarkerStyle(6);
 d->SetMarkerSize(1);
 d->SetMarkerColor(1);
 d->SetLineColor(1);
-//d->SetLineColor(kRed);
-
-//d->Draw("AP");
-
-//d2->GetXaxis()->SetTitle("d(cm)");
-//d2->GetYaxis()->SetTitle("S/N");
-//d2->GetXaxis()->CenterTitle();
-//d2->GetYaxis()->CenterTitle();
-//d2->SetTitle("Signal to noise ratio 511 keV ");
-
-//d2->SetMarkerStyle(6);
-//d2->SetMarkerSize(1);
-//d2->SetMarkerColor(1);
-
-
-//d2->Draw("same");
 
 
 
@@ -49,30 +24,21 @@ c1->SetGrid();
    
 TMultiGraph  *mg  = new TMultiGraph();
 mg->Add(d);
-//mg->Add(d2);
 mg->SetTitle("Yield 'deposition 130' 29/03/23");
 mg->GetXaxis()->SetTitle("Energy (keV)");
 mg->GetYaxis()->SetTitle("Yield");
 mg->Draw("AP");
 
 
-   //TLegend *legend = new TLegend();
-   //legend->SetHeader("Header","C"); 				// option "C" allows to center the header
-   //legend->AddEntry(d,"CH0");
-  // legend->AddEntry(d2,"CH1");
-   //gStyle->SetLegendFillColor(0);
 
-   //legend->Draw();
+//fit with arctangent
 
 
-//fit con arcotangente
-
-// x_bar 0.16297
 double sx= 273.;
 double dx= 342.;
 
 
-//inizializzo i parametri di fit salita
+//initializes first set of parameters
 
 //double a_par=1.00961e-01;
 
@@ -82,7 +48,7 @@ double dx= 342.;
 
 //double d_par=1.50797e-01;
 
-//plot parametri fit
+//plot 
 
 double a_par= 1.03865e-01;
 
@@ -94,7 +60,7 @@ double d_par=-1.99144e-02;
 
 
 
-//inizializzo i parametri di fit discesa
+//initializes second set of parameters 
 
 
 //double e_par=1.16070e-01; //par4
@@ -104,7 +70,7 @@ double d_par=-1.99144e-02;
 //double g_par=-3.32730e+02 ; //par6
 
 
-//plot parfit
+//plot 
 
 double e_par=1.13099e-01; //par4
 
@@ -127,14 +93,13 @@ TF1* arctan_func = new TF1("arctan_func","[0]*TMath::ATan( [1]*(x+[2]) )  + [3] 
 
 arctan_func->Draw("same");
 
-// calcolo residui
+// calculates residuals of the fit
 
 const int h=d->GetN();
 double resy[h];
 double x[h];
 double erry[h];
 
-// f->Eval(x_val[i])
 
 for (int i=0; i<d->GetN();i++)
 {
