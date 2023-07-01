@@ -267,28 +267,28 @@ e_totTa=e_elTa+e_nucTa
 
 
 
-#
-E_p=np.arange(275.,300.,0.1)  # step di 0.5 keV step della convoluzione
-Nlayer=len(layer_dx) #NUMERO LAYERS #4;7;5
-E_0=275. #energia minima
+#energy range for the simulation
+E_p=np.arange(275.,300.,0.1) 
+Nlayer=len(layer_dx) # number of layers
+E_0=275. #minimum value for the energy
 
 
 
-a=14./15.
+a=14./15. #conversion factor from laboratory to CM frame
 
 
-Yield1=[]  #Yield value da aggiornare
+Yield1=[]  #Yield values
 
 partial_yield=np.zeros([Nlayer,len(E_p)],float)
 
 
 
 for i in range(len(E_p)):
-    #calcolo dell'integrale per ogni energia del protone
+    #for every proton energy, calculates the yield
     DE=0. #deltae
     Yield=0.
     
-    #estremi integrale all'inizio
+    #extrema for the integral
     
     ext_sup=E_p[i] 
     DE=deltae(0,ext_sup)
@@ -302,22 +302,22 @@ for i in range(len(E_p)):
       
       
       if(ext_inf<0.):
-        #integro da 0 a ext_sup
+        #integral from 0 to ext_sup
          
         Yield+=integral_L(j,0.,ext_sup)
         partial_yield[j,i]=integral_L(j,0.,ext_sup)
         #print('break1 \n')
-        break   #poi esco dal for dei layers
+        break   
       
       
       if(ext_inf>=0.):
-        #integro da ext_inf a ext_sup
+        #integral from ext_inf to ext_sup
         Yield+= integral_L(j,ext_inf,ext_sup)
         partial_yield[j,i]=integral_L(j,ext_inf,ext_sup) 
         
       if(j==Nlayer-1):
-        #print('break2 \n')
-        break #esce dal while senza calcolare i nuovi estremi perchè sono finiti
+        #print('break2 \n'
+        break 
         
         
       ext_sup=ext_inf #E-DE   
@@ -335,18 +335,18 @@ Yield1=np.array(Yield1)
 
 
 
-#dati sperimentali
+#experimental data
 fnamedata='yieldexp2.txt'
-a=5./(1.44*1e11) #costante per scalare la simulazione ai dati sperimentali 
+a=5./(1.44*1e11) #constant to scale the simulation to the experimental data
 E_exp, Y_exp, sigmaY_exp = np.genfromtxt(fnamedata,dtype='float',comments='#',usecols=(0,1,2),unpack=True)
 
 
 for i in range(Nlayer):
-  #plot partial yield 
+  #plot partial yield for each sublayer
   plt.plot(E_p,partial_yield[i,:]*a,color='black')
 
 
-#plot valori
+#plot 
 
 plt.errorbar(E_exp,Y_exp,sigmaY_exp,fmt='None',color='green',marker='s')
 plt.scatter(E_p,Yield1*a,marker='o',s=1)
