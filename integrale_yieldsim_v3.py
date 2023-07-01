@@ -10,14 +10,13 @@ import ROOT
 graphStopPowerNitrogen = ROOT.TGraph( "e_tot_stopping_N.txt" )
 graphStopPowerTantalum = ROOT.TGraph( "e_tot_stopping_Ta.txt" )
 
+#Target composition: 1 density (atoms/cm^2), 2 percentage of nitrogen, 3 percentage of tantalum for each sublayer of the target
+
 
 #COMPOSIZIONE LAYERS dec_1
 #layer_dx=[0.547524, 0.140000, 0.100000, 0.100000 ] #10^18at/cm^2
 #percN=[55.0132, 41.2155 , 12.0000 ,  3.1721  ]
 #percTa=[100.-55.0132,100.-41.2155,100.-12.0000,100.-3.1721]
-
-
-
 
 #COMPOSIZIONE LAYERS dec_1 prova 1
 #layer_dx=[0.887524/10.,0.887524/10.,0.887524/10.,0.887524/10. ,0.887524/10.,0.887524/10.,0.887524/10.,0.887524/10.,0.887524/10.,0.887524/10. ] #10^18at/cm^2
@@ -29,9 +28,11 @@ layer_dx=[0.887524/30.,0.887524*2./30.,0.887524/10.,0.887524/10.,0.887524/10. ,0
 percN=[31.1,47.6,50.1,51.9,52.2,59.7,48.3,41.4,24.4,9.7,3.7 ]
 percTa=[]
 
-
 for i in range(len(percN)):
    percTa.append(100.-percN[i])
+
+
+
 #COMPOSIZIONE LAYERS dec_1 fit
 #layer_dx=[ 0.08930819164619654 , 0.20886529840734203   ] #10^18at/cm^2
 #percN=[  28.028700107292423,41.396862419368325   ]
@@ -50,9 +51,11 @@ for i in range(len(percN)):
 
 
 
-#funzioni per calcolare lo stopping power a una energia data E_x; interpolazione lineare ROOT 
+#tools to calculate stopping power for a give energy  E_x; linear interpolation ROOT 
 
-def stopping_true(ind,E_x): # E_x energia per la quale voglio calcolare stopping power e effective stopping power.
+
+#true stopping power
+def stopping_true(ind,E_x): # E_x energy at which we want to calculate the stopping power.
 
    e_totN14 = graphStopPowerNitrogen.Eval( E_x ) #stopping power totale a E_x per N14
    e_totTa  = graphStopPowerTantalum.Eval( E_x ) #stopping power totale a E_x per Ta
@@ -61,8 +64,8 @@ def stopping_true(ind,E_x): # E_x energia per la quale voglio calcolare stopping
    
    return(e_true_TaN)
 
-
-def stopping_eff(ind,E_x): #ind=indice di layer da usare, E_x energia per la quale voglio calcolare stopping power e effective stopping power.
+# effective stopping power
+def stopping_eff(ind,E_x): #ind=index for the layer to be considered, E_x energy for the stopping power and effective stopping power.
 
   
    e_totN14 = graphStopPowerNitrogen.Eval( E_x ) #stopping power totale a E_x per N14
