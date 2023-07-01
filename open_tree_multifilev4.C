@@ -14,7 +14,7 @@ struct slimport_data_t {
 	
 };
 
-// programma per analizzare più file (integrale in canali)
+// analyzes more files in '.root' format containing energy spectra, charge, timestamps
 
 
 void readchannel()
@@ -120,7 +120,7 @@ for(int a=0; a<dati_input.size(); a++){
    intree->GetEntry(i);
    inbranch1->GetEntry(i);
    
-   if(indata.channel==7)   //carica
+   if(indata.channel==7)   //charge
    {hcharge->Fill(indata.energy);
     
      };
@@ -153,18 +153,18 @@ outputfile1<<timestamp_ch[timestamp_ch.size()-1]*1e-8<<endl;
  
  
  
-//estremi del picco in energia da integrare
+//exterma of the peak(s)  to integrate in the energy spectra 
 
-//4 primari, 3 secondari, 2 15N, 1F
 
-vector <double> min_peak={1120.,2030.,3495.,11140.,  10000.,9090.,7630.}; //ch
+
+vector <double> min_peak={1120.,2030.,3495.,11140.,  10000.,9090.,7630.}; //channels
 vector <double> max_peak={1140.,2060,3520.,11180.,  10050.,9130.,7665.};
 
-vector <double> m1_bkg={50,50.,50.,50.,  50.,50.,1.};   //50 bin picchi Co e Cs; 10 bin picchi Ba 
+vector <double> m1_bkg={50,50.,50.,50.,  50.,50.,1.};   //number of histogram bins
 vector <double> m2_bkg={50.,50.,50.,50.,  50.,50.,50.};
 
 
-
+//area under the peaks of interest and yield (area divided by the charge)
 vector <double> Area={0.,0.,0.,0.,  0.,0.,0.};
 vector <double> Area_sigma={0.,0.,0.,0.,  0.,0.,0.};
 
@@ -172,7 +172,7 @@ vector <double> yield={0.,0.,0.,0.,  0.,0.,0.};
 vector <double> sigmayield={0.,0.,0.,0.,  0.,0.,0.};
 
 
-
+//background subtraction
 for (int j=0;j<min_peak.size();j++)
 {
 double L=min_peak[j];
@@ -182,20 +182,20 @@ double m1=m1_bkg[j]; //bin background sx
 double m2=m2_bkg[j]; //bin background dx
 
 
-double n=h_spectrum->FindFixBin(U)-h_spectrum->FindFixBin(L); //bin picco
+double n=h_spectrum->FindFixBin(U)-h_spectrum->FindFixBin(L);
 
 
 double x_in= h_spectrum->FindFixBin(L);
 double x_fin= h_spectrum->FindFixBin(U);
 //cout<<"L, U "<<L<<"  "<<U<<endl;
-//cout<<"estremi  "<<x_in<<"  "<<x_fin<<endl;
+//cout<<"extrema  "<<x_in<<"  "<<x_fin<<endl;
 
 double G= h_spectrum->Integral(x_in,x_fin);
 
 x_in=h_spectrum->FindFixBin(L-m1);
 x_fin=h_spectrum->FindFixBin(L-1);
 //cout<<"L-m1, L-1 "<<L-m1<<"  "<<L-1<<endl;
-//cout<<"estremi  "<<x_in<<"  "<<x_fin<<endl;
+//cout<<"extrema  "<<x_in<<"  "<<x_fin<<endl;
 
 double bkg1= h_spectrum->Integral(x_in,x_fin);
 
@@ -203,7 +203,7 @@ double bkg1= h_spectrum->Integral(x_in,x_fin);
 x_in=h_spectrum->FindFixBin(U+1);
 x_fin=h_spectrum->FindFixBin(U+m2);
 //cout<<"U+1, U+m2 "<<U+1<<"  "<<U+m2<<endl;
-//cout<<"estremi  "<<x_in<<"  "<<x_fin<<endl;
+//cout<<"extrema  "<<x_in<<"  "<<x_fin<<endl;
 
 double bkg2= h_spectrum->Integral(x_in,x_fin);
 
@@ -224,20 +224,20 @@ outputfile2<<a<<"   Area (counts)    "<<j<<"   "<<Area[j]<<"   "<<Area_sigma[j]<
 
 
 
-}; //fine for j
+}; //end for j
 
 
 
 
 double carica=charge[a];
-//double carica_sigma=0.03*carica;  //errore sulla carica 3 percento
-double carica_sigma=0.0;  //no errore sulla carica
+//double carica_sigma=0.03*carica;  // 3% statistical error on charge reading
+double carica_sigma=0.0;  //no error on the charge
 
-//carica dall'istogramma per confronto
+//histogram charge to be compared with counter one
 
 double carica_histo=hcharge->Integral();
-//double carica_histo_sigma=0.03*carica_histo;  //errore sulla carica 3 percento
-double carica_histo_sigma=0.;  //no errore sulla carica 
+//double carica_histo_sigma=0.03*carica_histo;  
+double carica_histo_sigma=0.;  
 
  
 
@@ -276,7 +276,7 @@ outputfile3<<"   "<<endl;
 
 
 
-}; //fine for a
+}; //end for a
 
 
 };
