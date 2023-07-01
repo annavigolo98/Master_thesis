@@ -14,7 +14,9 @@ struct slimport_data_t {
 	
 };
 
-// analyzes more files in '.root' format containing energy spectra, charge, timestamps
+// analyzes more files in '.root' format containing energy spectra, charge, timestamps. Calculates the areas under the peaks of interest in the energy spectrum  subtracting the background. 
+//Gets the timestamps and the highest value (the total time of acquisition). Calculates the yield as the ratio of the area and the charge. 
+//Yields are calculated for each beam energy and gamma ray transition of the 15O nucleus.  
 
 
 void readchannel()
