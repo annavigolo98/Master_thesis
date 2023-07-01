@@ -13,17 +13,17 @@ graphStopPowerTantalum = ROOT.TGraph( "e_tot_stopping_Ta.txt" )
 #Target composition: 1 density (atoms/cm^2), 2 percentage of nitrogen, 3 percentage of tantalum for each sublayer of the target
 
 
-#COMPOSIZIONE LAYERS dec_1
+#COMP LAYERS dec_1
 #layer_dx=[0.547524, 0.140000, 0.100000, 0.100000 ] #10^18at/cm^2
 #percN=[55.0132, 41.2155 , 12.0000 ,  3.1721  ]
 #percTa=[100.-55.0132,100.-41.2155,100.-12.0000,100.-3.1721]
 
-#COMPOSIZIONE LAYERS dec_1 prova 1
+#COMP LAYERS dec_1 prova 1
 #layer_dx=[0.887524/10.,0.887524/10.,0.887524/10.,0.887524/10. ,0.887524/10.,0.887524/10.,0.887524/10.,0.887524/10.,0.887524/10.,0.887524/10. ] #10^18at/cm^2
 #percN=[42.6,50.1,51.9,52.2,59.7,48.3,41.4,24.4,9.7,3.7 ]
 #percTa=[]
 
-#COMPOSIZIONE LAYERS dec_1 prova2
+#COMP LAYERS dec_1 prova2
 layer_dx=[0.887524/30.,0.887524*2./30.,0.887524/10.,0.887524/10.,0.887524/10. ,0.887524/10.,0.887524/10.,0.887524/10.,0.887524/10.,0.887524/10.,0.887524/10. ] #10^18at/cm^2
 percN=[31.1,47.6,50.1,51.9,52.2,59.7,48.3,41.4,24.4,9.7,3.7 ]
 percTa=[]
@@ -33,18 +33,18 @@ for i in range(len(percN)):
 
 
 
-#COMPOSIZIONE LAYERS dec_1 fit
+#COMP LAYERS dec_1 fit
 #layer_dx=[ 0.08930819164619654 , 0.20886529840734203   ] #10^18at/cm^2
 #percN=[  28.028700107292423,41.396862419368325   ]
 #percTa=[100.-28.028700107292423   ,100.-41.396862419368325  ]
   
-#COMPOSIZIONE LAYERS dec_2
+#COMP LAYERS dec_2
    
 #layer_dx=[0.100234,0.134804,0.103019,0.229821,0.115302,0.104322,0.111275] #10^18at/cm^2
 #percN=[72.6546,53.7575, 53.6916, 47.4629,34.8149, 22.8344, 11.9323    ]
 #percTa=[100.-72.6546,100.-53.7575,100.-53.6916,100.-47.4629,100.-34.8149,100.-22.8344, 100.-11.9323]
   
-#COMPOSIZIONE LAYERS mar_3
+#COMP LAYERS mar_3
 #layer_dx=[0.10001,0.27856,0.102153,0.375279,0.202666 ] #10^18at/cm^2
 #percN=[29.2815, 42.9672, 32.3414, 20.0711, 6.8396   ]
 #percTa=[100.-29.2815,100.-42.9672,100.-32.3414,100.-20.0711,100.-6.8396]
