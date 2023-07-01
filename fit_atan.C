@@ -5,7 +5,7 @@
 using namespace std;
 
 
-//fit of the yield profile of the targets analyzed with a double arctangent function: a rising edge defines the first set of parameters; the second one defines the second one.
+//fit of the yield profile of the targets analyzed with a double arctangent function: a rising edge defines the first set of parameters; the second one defines the second set.
 void grafico(const char *namefile) {
 
 TCanvas *c1= new TCanvas("c1");
