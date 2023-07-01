@@ -79,8 +79,8 @@ for i in range(len(percN)):
 def stopping_eff(ind,E_x): #ind=index of layer to use, E_x energy for which we want to calculate the stopping power and the effective stopping power.
 
   
-   e_totN14 = graphStopPowerNitrogen.Eval( E_x ) #stopping power totale a E_x per N14
-   e_totTa  = graphStopPowerTantalum.Eval( E_x ) #stopping power totale a E_x per Ta
+   e_totN14 = graphStopPowerNitrogen.Eval( E_x ) 
+   e_totTa  = graphStopPowerTantalum.Eval( E_x ) 
    
    
    e_eff_TaN= e_totN14 + (percTa[ind]/percN[ind])* e_totTa 
