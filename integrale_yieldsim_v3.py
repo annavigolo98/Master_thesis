@@ -6,7 +6,7 @@ from scipy import integrate
 from scipy import optimize as opt
 import ROOT
 
-
+#TGraph for the total stopping power: provided by the function 'write_tot_stopping' below
 graphStopPowerNitrogen = ROOT.TGraph( "e_tot_stopping_N.txt" )
 graphStopPowerTantalum = ROOT.TGraph( "e_tot_stopping_Ta.txt" )
 
@@ -117,27 +117,27 @@ def integral_L(ind,E_1,E_2):  #ind=index of the layer considered, extrema in ene
    
    
    a=14./15.
-   # Calcoliamo gli estremi dell'integrale nel lab
+   
    EMax = E_2 #E_2=E
    EMin = E_1 #E_1=E-DE
 
-   # Definiamo le variabili ausiliarie per l'integrale
+   
    integral = 0.
     
-   # Definiamo il numero di step
+   
    nSteps = 1000
 
-   # Calcoliamo la grandezza dello step
+   
    step = (EMax - EMin)/nSteps
 
-   # Definiamo la variabile energia
-   E_step = EMin + step/2  # Metodo Trapezio
-   #E_step = EMin           # Metodo Classico
+   
+   E_step = EMin + step/2  # trapezoid
+   #E_step = EMin           # classic method
    
    def calculateCrossSection(E):
      
-     T=((0.9893)**2.)/4. #gamma of the resonamce in CM frame (da report)
-     E_R=259.56 #keV risonanza nel CM (da report)
+     T=((0.9893)**2.)/4. #gamma of the resonamce in CM frame 
+     E_R=259.56 #keV energy resonance in the CM frame
      
      
      cross=1./((E-E_R)**2.+T)
@@ -145,8 +145,8 @@ def integral_L(ind,E_1,E_2):  #ind=index of the layer considered, extrema in ene
      
      
    for i in range( nSteps ):
-       stopPower     = stopping_eff(ind, E_step) #stopping power in E_step   nel lab
-       crossSection  = calculateCrossSection( E_step*a ) #cross section in CM
+       stopPower     = stopping_eff(ind, E_step) #stopping power in E_step   in the lab frame
+       crossSection  = calculateCrossSection( E_step*a ) #cross section in CM frame
        integral     += step*crossSection/stopPower
        E_step        += step
 
@@ -166,10 +166,10 @@ def write_tot_stopping(e_tot_stopping,E_stopping,name):
       fout='e_tot_stopping_N.txt'
     if (name=='Ta'):
       fout='e_tot_stopping_Ta.txt'
-    if (name=='Ar'):
-      fout='e_tot_stopping_Ar.txt'
-    if (name=='15N'):
-      fout='e_tot_stopping_15N.txt'
+    #if (name=='Ar'):
+    #  fout='e_tot_stopping_Ar.txt'
+    #if (name=='15N'):
+    #  fout='e_tot_stopping_15N.txt'
         
     f=open(fout,'w')
     
@@ -178,7 +178,7 @@ def write_tot_stopping(e_tot_stopping,E_stopping,name):
                
     f.close()
     
-#writes effective stopping power
+#writes effective stopping power for a compound target
 
 def write_eff_stopping(e_totN14,e_totTa,E_stoppingN14):
   
@@ -209,7 +209,7 @@ def write_eff_stopping(e_totN14,e_totTa,E_stoppingN14):
 
 #MAIN FUNCTION      
 # stopping power TaN 
-
+# input files: stopping power calculated from SRIM 2013 
 
 #14N
 fname14N='H_in_N14.txt'
@@ -226,18 +226,18 @@ e_totTa=e_elTa+e_nucTa
 
 #Ar
 
-fnameAr='H_in_Ar.txt'
-E_stoppingAr, e_elAr, e_nucAr = np.genfromtxt(fnameAr,dtype='float',comments='#',usecols=(0,2,3),unpack=True)
+#fnameAr='H_in_Ar.txt'
+#E_stoppingAr, e_elAr, e_nucAr = np.genfromtxt(fnameAr,dtype='float',comments='#',usecols=(0,2,3),unpack=True)
 
-e_totAr=e_elAr+e_nucAr
+#e_totAr=e_elAr+e_nucAr
 
 
 #15N
 
-fnameN15='H_in_N15.txt'
-E_stopping15N, e_el15N, e_nuc15N = np.genfromtxt(fnameN15,dtype='float',comments='#',usecols=(0,2,3),unpack=True)
+#fnameN15='H_in_N15.txt'
+#E_stopping15N, e_el15N, e_nuc15N = np.genfromtxt(fnameN15,dtype='float',comments='#',usecols=(0,2,3),unpack=True)
 
-e_tot15N=e_el15N+e_nuc15N
+#e_tot15N=e_el15N+e_nuc15N
 
 
 #WRITE STOPPING POWERS
