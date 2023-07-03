@@ -1,6 +1,6 @@
 void macrofit(){
     
-    
+    //PROVA
     //Energy calibration of a detector starting from energy in channels and nominal values for the energies in keV of the peaks of interest. Gaussian functions  are used to fit the peaks in the energy spectrum and get the 
     //centroids in channels. Linear relation between energies in channels and the ones in keV is assumed.
 
