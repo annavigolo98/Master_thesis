@@ -6,7 +6,7 @@ from scipy import integrate
 from scipy import optimize as opt
 import scipy
 import ROOT
-#non ciao,meglio salve
+#ciao salve 
 
 from iminuit import Minuit,cost
 import uncertainties
