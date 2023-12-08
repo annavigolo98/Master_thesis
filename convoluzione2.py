@@ -12,6 +12,8 @@ from iminuit import Minuit,cost
 import uncertainties
 
 #needs total stopping power files to work   prova1
+
+
 graphStopPowerNitrogen = ROOT.TGraph( "e_tot_stopping_N.txt" )
 graphStopPowerTantalum = ROOT.TGraph( "e_tot_stopping_Ta.txt" )
 graphStopPowerArgon = ROOT.TGraph( "e_tot_stopping_Ar.txt" )
