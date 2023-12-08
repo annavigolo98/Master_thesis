@@ -6,12 +6,14 @@ from scipy import integrate
 from scipy import optimize as opt
 import scipy
 import ROOT
-
+#ciao
 
 from iminuit import Minuit,cost
 import uncertainties
 
-#needs total stopping power files to work  main
+#needs total stopping power files to work   prova1
+
+
 graphStopPowerNitrogen = ROOT.TGraph( "e_tot_stopping_N.txt" )
 graphStopPowerTantalum = ROOT.TGraph( "e_tot_stopping_Ta.txt" )
 graphStopPowerArgon = ROOT.TGraph( "e_tot_stopping_Ar.txt" )
@@ -20,7 +22,7 @@ graphStopPower15N = ROOT.TGraph( "e_tot_stopping_15N.txt" )
 #yield profile txt file
 graphYield=ROOT.TGraph("Yield_TaN_dec_1_simulation.txt")
 
-#layer composition: thickness in at/cm^2, percentage of nitrogen, percentage of tantalum
+#layer composition: thickness in at/cm^2, percentage of nitrogen, percentage of tantalum 
 #COMP LAYERS dec_1
 #layer_dx=[0.547524, 0.140000, 0.100000, 0.100000 ] #10^18at/cm^2
 #percN=[55.0132, 41.2155 , 12.0000 ,  3.1721  ]
