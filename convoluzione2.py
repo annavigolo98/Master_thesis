@@ -20,7 +20,7 @@ graphStopPower15N = ROOT.TGraph( "e_tot_stopping_15N.txt" )
 #yield profile txt file
 graphYield=ROOT.TGraph("Yield_TaN_dec_1_simulation.txt")
 
-#layer composition: thickness in at/cm^2, percentage of nitrogen, percentage of tantalum
+#layer composition: thickness in at/cm^2, percentage of nitrogen, percentage of tantalum AAAAAA
 #COMP LAYERS dec_1
 #layer_dx=[0.547524, 0.140000, 0.100000, 0.100000 ] #10^18at/cm^2
 #percN=[55.0132, 41.2155 , 12.0000 ,  3.1721  ]
