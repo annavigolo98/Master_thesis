@@ -7,15 +7,11 @@ from scipy import optimize as opt
 import scipy
 import ROOT
 
-#ciao prova1
-
-#ciao salve 
-
 
 from iminuit import Minuit,cost
 import uncertainties
 
-#needs total stopping power files to work   prova1
+#needs total stopping power files to work
 
 
 graphStopPowerNitrogen = ROOT.TGraph( "e_tot_stopping_N.txt" )
@@ -59,25 +55,6 @@ for i in range(len(percN)):
 #layer_dx=[0.10001,0.27856,0.102153,0.375279,0.202666 ] #10^18at/cm^2
 #percN=[29.2815, 42.9672, 32.3414, 20.0711, 6.8396   ]
 #percTa=[100.-29.2815,100.-42.9672,100.-32.3414,100.-20.0711,100.-6.8396]
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 
